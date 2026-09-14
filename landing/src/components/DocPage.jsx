@@ -56,7 +56,7 @@ const DOCS = {
           <p>Organization packs stay inside your tenant boundary with per-call audit logs visible to your admins. Cherry staff access requires your written consent except where compelled by law.</p>
         </Section>
         <Section h="4. Your rights">
-          <p>Request export or deletion of your account data at hello@cherry.ctx. Deletion removes personal records within 30 days; aggregated, non-identifying metrics may remain.</p>
+          <p>Request export or deletion of your account data at c00h00e00r00y@gmail.com. Deletion removes personal records within 30 days; aggregated, non-identifying metrics may remain.</p>
         </Section>
       </>
     ),
@@ -77,7 +77,7 @@ const DOCS = {
           <p>Retrievals that returned successfully are non-refundable — the context was consumed. Version dissatisfaction after use is covered by re-renting the corrected version, not by refund.</p>
         </Section>
         <Section h="4. How to claim">
-          <p>Write to hello@cherry.ctx with your rental ID. Valid claims settle to the original payment method within 10 business days.</p>
+          <p>Write to c00h00e00r00y@gmail.com with your rental ID. Valid claims settle to the original payment method within 10 business days.</p>
         </Section>
       </>
     ),
@@ -98,7 +98,7 @@ const DOCS = {
           <p>Every search, rent, and retrieval writes an append-only audit record your admins can export. Key events are timestamped against synchronized clocks.</p>
         </Section>
         <Section h="4. Reporting issues">
-          <p>Found something? Write to hello@cherry.ctx with “security” in the subject. We acknowledge within 2 business days and publish fixes in the pack or runtime changelog.</p>
+          <p>Found something? Write to c00h00e00r00y@gmail.com with “security” in the subject. We acknowledge within 2 business days and publish fixes in the pack or runtime changelog.</p>
         </Section>
       </>
     ),

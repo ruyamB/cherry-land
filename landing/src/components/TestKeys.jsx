@@ -196,7 +196,7 @@ export default function TestKeys() {
                       {key} is yours, {email.trim().toLowerCase()}.
                     </p>
                     <a
-                      href="/thank-you"
+                      href={`/thank-you?invite=${key}`}
                       className="group fluid mt-4 inline-flex items-center gap-3 rounded-full bg-cherry py-2 pl-6 pr-2 text-sm font-bold text-white active:scale-[0.98]"
                     >
                       View your invite

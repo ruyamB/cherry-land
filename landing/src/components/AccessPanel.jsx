@@ -78,7 +78,13 @@ export default function AccessPanel() {
             </p>
             <button
               type="button"
-              onClick={() => window.open("/thank-you", "_blank", "noopener")}
+              onClick={() => {
+                const qs = new URLSearchParams({
+                  invite: invite?.code || "",
+                  pos: String(invite?.position ?? ""),
+                });
+                window.open(`/thank-you?${qs.toString()}`, "_blank", "noopener");
+              }}
               className="group fluid mt-5 inline-flex items-center gap-3 rounded-full bg-cherry py-2 pl-6 pr-2 text-sm font-bold text-white active:scale-[0.98]"
             >
               Open your invite

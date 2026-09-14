@@ -1,15 +1,14 @@
-import { ArrowUp, ArrowUpRight, EnvelopeSimple } from "@phosphor-icons/react";
+import { ArrowUp, ArrowUpRight, EnvelopeSimple, XLogo } from "@phosphor-icons/react";
 import RevealV from "./RevealV";
 
 const PRODUCT = [
   ["Runtime", "/#runtime"],
   ["Protocol", "/#protocol"],
-  ["Pack index", "/#packs"],
+  ["Tester keys", "/test-keys"],
   ["Get access", "/#access"],
 ];
 
 const MARKET = [
-  ["Browse packs", "/#packs"],
   ["How renting works", "/#protocol"],
   ["Get a tester key", "/test-keys"],
   ["Sample invite", "/thank-you"],
@@ -78,12 +77,22 @@ export default function Footer() {
                 A marketplace and runtime where agents rent versioned, cited
                 context — instead of re-learning the world per task.
               </p>
-              <a
-                href="mailto:hello@cherry.ctx"
-                className="fluid mt-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-2xl hover:bg-white/20"
-              >
-                <EnvelopeSimple size={16} weight="light" /> hello@cherry.ctx
-              </a>
+              <div className="mt-5 flex flex-col items-start gap-2">
+                <a
+                  href="mailto:c00h00e00r00r00y@gmail.com"
+                  className="fluid inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 font-mono2 text-[13px] text-white backdrop-blur-2xl hover:bg-white/20"
+                >
+                  <EnvelopeSimple size={14} weight="light" /> c00h00e00r00r00y@gmail.com
+                </a>
+                <a
+                  href="https://x.com/@cherryisfun"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="fluid inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 font-mono2 text-[13px] text-white backdrop-blur-2xl hover:bg-white/20"
+                >
+                  <XLogo size={14} weight="light" /> @cherryisfun
+                </a>
+              </div>
               <a href="/status" className="fluid mt-3 inline-flex items-center gap-2 font-mono2 text-xs text-white/70 hover:text-white">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-300" />
                 All systems operational — status

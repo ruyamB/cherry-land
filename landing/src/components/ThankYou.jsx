@@ -3,6 +3,9 @@ import RevealV from "./RevealV";
 
 /* /thank-you — sakura canopy full-bleed, white veil, centered bezel card */
 export default function ThankYou() {
+  const q = new URLSearchParams(window.location.search);
+  const invite = q.get("invite");
+  const pos = q.get("pos");
   return (
     <div className="relative min-h-[100dvh] overflow-hidden bg-cream font-grot text-cherry-ink">
       <img
@@ -32,14 +35,20 @@ export default function ThankYou() {
                 <SealCheck size={28} weight="light" />
               </span>
               <p className="mt-6 inline-flex rounded-full border border-cherry/15 bg-white px-3 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-cherry-deep">
-                Key reserved · Invite 04-117
+                {invite ? `Key reserved · ${invite}` : "Key reserved"}
               </p>
               <h1 className="mx-auto mt-4 max-w-[16ch] text-4xl font-extrabold leading-[1.02] tracking-tight text-cherry-ink md:text-6xl">
                 Thank you for trusting <span className="text-cherry">Cherry.</span>
               </h1>
               <p className="mx-auto mt-5 max-w-[46ch] text-[15px] leading-relaxed text-cherry-ink/70">
-                Your tester key is on its way. One pack, one task, fully cited —
-                solana-security@4.2 is already shelved under your name.
+                Your tester key is on its way. One pack, one task, fully cited
+                {pos ? (
+                  <>
+                    {" "}— you're <span className="font-mono2 text-[13px] text-cherry-deep">#{pos} in line</span>.
+                  </>
+                ) : (
+                  "."
+                )}
               </p>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                 <a

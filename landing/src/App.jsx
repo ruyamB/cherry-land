@@ -29,15 +29,9 @@ function Bezel({ children, className = "" }) {
 }
 
 const CHECKS = [
-  ["Signer check", "Anchor docs · Mar 2026", "0.96"],
-  ["Owner check", "Audit notes · Feb 2026", "0.94"],
-  ["PDA seed check", "Exploit report · Jan 2026", "0.91"],
-];
-
-const PACKS = [
-  { name: "solana-security@4.2", by: "Rian Kaplan", meta: "47 sources · 3d ago", q: "94.1", price: "₹2 / task" },
-  { name: "indian-gst-saas@2.8", by: "Mira Krishnan", meta: "31 sources · 2d ago", q: "96.3", price: "₹5 / retrieval" },
-  { name: "kubernetes-prod@3.5", by: "Tomas Hanaoka", meta: "52 sources · 6h ago", q: "91.7", price: "₹3 / task" },
+  ["Signer check", "Anchor docs"],
+  ["Owner check", "Audit notes"],
+  ["PDA seed check", "Exploit report"],
 ];
 
 export default function App() {
@@ -78,44 +72,31 @@ export default function App() {
                 <IslandButton>Start Buying</IslandButton>
                 <IslandButton href="#protocol" secondary>Read protocol</IslandButton>
               </div>
-              <dl className="mx-auto mt-10 grid max-w-md grid-cols-3 gap-6 border-t border-cherry/10 pt-6 text-center">
-                {[
-                  ["1,284", "rentals today"],
-                  ["312 ms", "median retrieve"],
-                  ["47.2 M", "tokens kept out"],
-                ].map(([v, k]) => (
-                  <div key={k}>
-                    <dt className="font-mono2 text-lg text-cherry-ink">{v}</dt>
-                    <dd className="mt-1 text-[11px] uppercase tracking-wider text-muted">{k}</dd>
-                  </div>
-                ))}
-              </dl>
             </RevealV>
 
             <RevealV index={1} className="mx-auto mt-12 max-w-2xl text-left">
               <Bezel>
                 <div className="flex items-center justify-between">
-                  <p className="font-mono2 text-[11px] uppercase tracking-widest text-muted">retrieve · live</p>
-                  <span className="rounded-full bg-cherry px-2.5 py-1 font-mono2 text-[11px] text-white">
-                    cited 3/3
+                  <p className="font-mono2 text-[11px] uppercase tracking-widest text-muted">retrieve · sample output</p>
+                  <span className="rounded-full bg-blush px-2.5 py-1 font-mono2 text-[11px] text-cherry-deep">
+                    sample
                   </span>
                 </div>
                 <div className="mt-4 rounded-2xl bg-cherry-ink p-4 font-mono2 text-[12.5px] leading-relaxed text-white">
                   <p><span className="text-cherry">$</span> cherry get context "Indian Gst Laws 2026"</p>
                 </div>
                 <div className="mt-3 divide-y divide-cherry/10">
-                  {CHECKS.map(([t, s, c]) => (
+                  {CHECKS.map(([t, s]) => (
                     <div key={t} className="flex items-center gap-3 py-3">
                       <ShieldCheck size={20} weight="light" className="shrink-0 text-cherry" />
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-sm font-semibold text-cherry-ink">{t}</p>
                         <p className="truncate font-mono2 text-xs text-muted">{s}</p>
                       </div>
-                      <span className="font-mono2 text-xs text-cherry-deep">{c}</span>
                     </div>
                   ))}
                 </div>
-                <p className="mt-3 font-mono2 text-[11px] text-muted">3 chunks · 1.2k tokens · 500-page pack never sent</p>
+                <p className="mt-3 font-mono2 text-[11px] text-muted">Sample output — full packs never enter the prompt</p>
               </Bezel>
             </RevealV>
           </div>
@@ -223,53 +204,11 @@ export default function App() {
           </div>
         </section>
 
-        {/* INDEX BENTO */}
-        <section id="packs" className="mx-auto w-full max-w-6xl px-4 py-24 md:py-40">
-          <RevealV>
-            <Eyebrow>03 — Index</Eyebrow>
-            <h2 className="mt-5 max-w-[18ch] text-4xl font-extrabold tracking-tight text-cherry-ink md:text-6xl">
-              Cherrypick <span className="text-cherry">a pack.</span>
-            </h2>
-          </RevealV>
-          <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-12">
-            <RevealV className="lg:col-span-8">
-              <Bezel className="h-full">
-                <div className="flex items-center justify-between gap-3">
-                  <p className="font-mono2 text-sm text-cherry-ink">solana-security@4.2</p>
-                  <span className="rounded-full bg-cherry px-3 py-1 font-mono2 text-[11px] text-white">94.1 / 100</span>
-                </div>
-                <p className="mt-3 max-w-[54ch] text-[15px] text-cherry-ink/70">
-                  Anchor validation, PDA checks, CPI risks. 47 sources, historical
-                  exploit pairs with fixed counterparts. Updated 3 days ago.
-                </p>
-                <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-cherry/10 pt-5">
-                  <span className="font-mono2 text-sm font-medium text-cherry-ink">₹2 / task</span>
-                  <span className="font-mono2 text-xs text-muted">Rian Kaplan · audit researcher</span>
-                </div>
-              </Bezel>
-            </RevealV>
-            <div className="grid grid-cols-1 gap-6 lg:col-span-4">
-              {PACKS.slice(1).map((p, i) => (
-                <RevealV key={p.name} index={i + 1}>
-                  <Bezel>
-                    <p className="font-mono2 text-[13px] text-cherry-ink">{p.name}</p>
-                    <p className="mt-2 font-mono2 text-xs text-muted">{p.meta}</p>
-                    <div className="mt-4 flex items-center justify-between border-t border-cherry/10 pt-4">
-                      <span className="font-mono2 text-[13px] text-cherry-ink">{p.price}</span>
-                      <span className="rounded-full bg-blush px-2.5 py-0.5 font-mono2 text-[11px] text-cherry-deep">{p.q}</span>
-                    </div>
-                  </Bezel>
-                </RevealV>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* ACCESS */}
         <section id="access" className="mx-auto w-full max-w-6xl px-4 py-24 md:py-40">
           <div className="grid grid-cols-1 items-center gap-6 lg:grid-cols-12 lg:gap-10">
             <RevealV className="lg:col-span-7">
-              <Eyebrow>04 — Access</Eyebrow>
+              <Eyebrow>03 — Access</Eyebrow>
               <h2 className="mt-5 text-4xl font-extrabold tracking-tight text-cherry-ink md:text-6xl">
                 Start with <span className="text-cherry">one audit.</span>
               </h2>

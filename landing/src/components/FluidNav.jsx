@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const LINKS = [
   ["Runtime", "#runtime", "Rent cited chunks, never dumps"],
   ["Protocol", "#protocol", "search · rent · retrieve"],
-  ["Index", "#packs", "342 packs refreshed weekly"],
+  ["Keys", "/test-keys", "mint · claim · 9-char"],
   ["Access", "#access", "Tester keys, creator payouts"],
 ];
 
