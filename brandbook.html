@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cherry — Brandbook 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Inter:wght@400;500;700;900&family=Noto+Sans+JP:wght@500;700&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cherry:#D94F4F;
+  --cherry-deep:#8E1E2D;
+  --cherry-dark:#B91C1C;
+  --paper:#FFFEFB;
+  --ink:#141414;
+  --sumi:#2B2B2B;
+  --sakura:#FFCFC8;
+  --sakura-pale:#FFE9E3;
+  --sakura-ink:#FF8A8A;
+  --wood:#C69A63;
+  --indigo:#4E4DFF;
+  --lemon:#E9FF3A;
+  --stem:#3D6B35;
+  --line:#EFE6E0;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:Inter,sans-serif;-webkit-font-smoothing:antialiased}
+.script{font-family:Caveat,cursive}
+.anton{font-family:Anton,sans-serif}
+.stamp{font-family:'Special Elite',monospace}
+.jp{font-family:'Noto Sans JP',sans-serif}
+/* COVER */
+.cover{display:grid;grid-template-columns:92px 1fr;min-height:92vh}
+.jp-bar{background:var(--cherry);color:#fff;display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;font-size:64px;letter-spacing:18px;font-weight:500}
+.hero{position:relative;padding:48px 56px 32px;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.sumi-branch{position:absolute;top:-20px;right:-30px;width:420px;opacity:.9;pointer-events:none}
+.hero h1{font-family:Caveat,cursive;font-size:clamp(90px,14vw,190px);line-height:.9;color:var(--cherry);transform:rotate(-2deg)}
+.cherry-fruit{font-size:.65em;vertical-align:baseline}
+.stage{display:flex;align-items:flex-end;gap:24px;margin:10px 0 28px}
+.board{width:380px;height:90px;background:linear-gradient(#C69A63,#BE9259);border-radius:6px 6px 14px 14px;position:relative;box-shadow:0 2px 0 rgba(0,0,0,.08)}
+.board:after{content:'';position:absolute;left:12px;right:12px;bottom:14px;height:3px;background:rgba(255,255,255,.35)}
+.fruit{width:110px;height:110px;background:radial-gradient(circle at 30% 25%,#FF6B6B 0 18%,#C81E2B 45%,#730E1A 100%);border-radius:50% 50% 48% 52%;position:absolute;left:50%;bottom:48px;transform:translateX(-50%);box-shadow:inset -8px -10px 18px rgba(0,0,0,.35)}
+.fruit:before{content:'';position:absolute;top:-52px;left:55%;width:4px;height:60px;background:var(--stem);border-radius:4px;transform:rotate(8deg)}
+.tag{font-family:Anton,sans-serif;color:var(--cherry);letter-spacing:.02em;font-size:clamp(14px,2vw,24px);text-transform:uppercase}
+.year{position:absolute;right:56px;bottom:24px;font-family:Anton;color:var(--cherry);font-size:20px}
+/* SECTIONS */
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+.sec{padding:72px 0;border-top:1px solid var(--line)}
+.label{font-family:Anton;font-size:13px;letter-spacing:.18em;color:var(--cherry);text-transform:uppercase;margin-bottom:12px}
+h2{font-family:Caveat,cursive;font-size:56px;color:var(--ink);line-height:1}
+h2 em{color:var(--cherry);font-style:normal}
+p.body{max-width:640px;font-size:16px;line-height:1.7;color:#444;margin-top:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px}
+.card{border:1px solid var(--line);border-radius:18px;padding:28px;background:#fff;position:relative;overflow:hidden}
+.card.red{background:var(--cherry);color:#fff;border-color:var(--cherry)}
+.card.cream{background:var(--sakura-pale)}
+.mono{font-family:ui-monospace,Menlo,monospace;font-size:12px}
+/* colors */
+.swatch{height:120px;border-radius:14px;display:flex;align-items:flex-end;padding:12px;color:#fff;font-family:Anton;font-size:13px;letter-spacing:.08em}
+.swatch small{display:block;font-family:Inter;font-weight:500;opacity:.85}
+/* type */
+.type-row{border:1px solid var(--line);border-radius:16px;padding:24px;background:#fff;margin-top:16px;display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:center}
+/* manifesto */
+.manifesto{background:#fff;border:1px solid var(--line);border-radius:20px;padding:64px 32px;text-align:center;margin-top:28px}
+.manifesto .num{position:absolute}
+.stamp-big{font-family:'Special Elite';color:var(--cherry);font-size:clamp(28px,4.5vw,52px);line-height:1.3;letter-spacing:.02em;text-transform:uppercase}
+.indigo{color:var(--indigo);font-family:Anton;font-size:clamp(18px,2.8vw,30px);line-height:1.45;text-transform:uppercase}
+/* rules */
+.do{border-left:6px solid var(--cherry);padding:16px 18px;background:#fff;border-radius:0 12px 12px 0;margin-top:12px}
+.dont{border-left:6px solid #111;padding:16px 18px;background:#fff;border-radius:0 12px 12px 0;margin-top:12px}
+.kicker{font-family:Anton;font-size:12px;letter-spacing:.15em;text-transform:uppercase}
+footer{padding:48px 32px;display:flex;justify-content:space-between;color:var(--cherry);font-family:Caveat,cursive;font-size:28px}
+@media(max-width:800px){.grid2,.grid3,.grid4{grid-template-columns:1fr}.cover{grid-template-columns:56px 1fr}.jp-bar{font-size:36px}.hero{padding:32px 20px}.type-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="jp-bar jp">チェリー チェリー</div>
+  <div class="hero">
+    <svg class="sumi-branch" viewBox="0 0 400 220" fill="none"><path d="M380 20 C320 40 280 20 240 50 M240 50 C200 70 150 60 110 90" stroke="#222" stroke-width="14" stroke-linecap="round"/><circle cx="180" cy="80" r="12" fill="#FF8A8A"/><circle cx="205" cy="95" r="10" fill="#FF8A8A"/><circle cx="155" cy="105" r="9" fill="#FF9A9A"/><circle cx="230" cy="75" r="8" fill="#FF8A8A"/><circle cx="130" cy="120" r="7" fill="#FFB0A8"/></svg>
+    <div class="script" style="font-size:22px;color:var(--cherry)">Context Hub for Exchange, Retrieval, Rental & Yield</div>
+    <h1>Cherry<span class="cherry-fruit">.</span></h1>
+    <div class="stage"><div style="position:relative"><div class="fruit"></div><div class="board"></div></div></div>
+    <div class="tag">Context hub for exchange, retrieval, rental & yield</div>
+    <div class="year anton">2026.</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<div class="sec">
+  <div class="label">01 — Essence</div>
+  <h2>Virtual memory <em>for agents.</em></h2>
+  <p class="body">CHERRY IS A CONTEXT MARKETPLACE FOR AI AGENTS. It lets developers create, store, package, and securely share specific pieces of context that an agent may need to perform a task, instead of forcing every agent to rediscover or repeatedly send the same information.</p>
+  <div class="manifesto"><div class="indigo">Cherry works like virtual memory + a marketplace for AI context: agents keep their working memory small while pulling in specialized, reusable knowledge on demand.</div></div>
+  <div class="grid3">
+    <div class="card"><div class="kicker">Exchange</div><p class="body">Publish Context Packs. Versioned, cited, priced.</p></div>
+    <div class="card"><div class="kicker">Retrieval</div><p class="body">Rent by name, inject only what the task needs.</p></div>
+    <div class="card"><div class="kicker">Rental & Yield</div><p class="body">Temporary access. Creators earn per retrieval.</p></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="label">02 — Logo System</div>
+  <h2>The Cherry <em>script + fruit.</em></h2>
+  <p class="body">Primary wordmark is always handwritten brush script in Cherry Red, tilted -2°. Never typeset in grotesk. The fruit is the period. Small signature <span class="script" style="color:var(--cherry);font-size:22px">Cherry</span> lives bottom-right on every board.</p>
+  <div class="grid2">
+    <div class="card cream" style="text-align:center;padding:48px"><div class="script" style="font-size:84px;color:var(--cherry);transform:rotate(-3deg)">Cherry 🍒</div><div class="mono" style="margin-top:16px">PRIMARY / script + watercolor cherry / on Paper</div></div>
+    <div class="card red" style="text-align:center;padding:48px"><div class="script" style="font-size:84px;transform:rotate(-3deg)">Cherry 🍒</div><div class="mono" style="margin-top:16px">REVERSED / white script + fruit / on Cherry #D94F4F</div></div>
+  </div>
+  <div class="grid2">
+    <div class="do"><div class="kicker">Do — single cherry, stem up</div><div style="font-size:48px">🍒</div><div class="mono">Watercolor, highlight top-left, stem olive green #3D6B35. One fruit = one tasteful decision.</div></div>
+    <div class="dont"><div class="kicker">Don't — generic double-cherry clip-art</div><div class="stamp" style="color:var(--cherry)">ewwwwwwwwwww</div><div class="mono">No outlined twin-cherries, no gradient mesh, no AI stock. See board 03: rejected Gemini logo.</div></div>
+  </div>
+  <p class="body mono">Clearspace = height of “C”. Min size: 32px digital / 12mm print. Misuse: don't stretch, don't recolor script blue, don't add drop shadow.</p>
+</div>
+
+<div class="sec">
+  <div class="label">03 — Color</div>
+  <h2>Wagashi <em>palette.</em> White space, one red.</h2>
+  <div class="grid4">
+    <div><div class="swatch" style="background:#D94F4F">CHERRY<br><small>#D94F4F • primary • 60% of accents</small></div><div class="mono" style="margin-top:8px">Wordmark / CTA / JP bar</div></div>
+    <div><div class="swatch" style="background:#8E1E2D">BOW / DEEP<br><small>#8E1E2D • ribbon, cocktail</small></div><div class="mono" style="margin-top:8px">Premium, gift, Cherrified</div></div>
+    <div><div class="swatch" style="background:#FFFEFB;color:#111;border:1px solid var(--line)">PAPER<br><small>#FFFEFB • canvas</small></div><div class="mono" style="margin-top:8px">Always warm white, never pure #FFF tech</div></div>
+    <div><div class="swatch" style="background:#141414">SUMI INK<br><small>#141414 • branches, type</small></div><div class="mono" style="margin-top:8px">Sumi-e branches, body</div></div>
+  </div>
+  <div class="grid4">
+    <div><div class="swatch" style="background:#FFCFC8;color:#8E1E2D">SAKURA<br><small>#FFCFC8 • blossom wash</small></div></div>
+    <div><div class="swatch" style="background:#C69A63">WOOD<br><small>#C69A63 • omakase board</small></div></div>
+    <div><div class="swatch" style="background:#4E4DFF">STATEMENT INDIGO<br><small>#4E4DFF • manifesto only</small></div></div>
+    <div><div class="swatch" style="background:#E9FF3A;color:#111">HIRING LEMON<br><small>#E9FF3A • hiring only</small></div></div>
+  </div>
+  <p class="body">Rule: 80% Paper / 15% Cherry / 5% accent (Indigo OR Lemon, never both). Sakura is texture, not text color (except on Cherry bg).</p>
+</div>
+
+<div class="sec">
+  <div class="label">04 — Typography</div>
+  <h2>Four voices, <em>no more.</em></h2>
+  <div class="type-row"><div><div class="kicker">1. Script / Taste</div><div class="mono">Caveat Bold • Cherry, Make Your Agents Smarter</div></div><div class="script" style="font-size:64px;color:var(--cherry)">Make Your Agents Smarter</div></div>
+  <div class="type-row"><div><div class="kicker">2. Grotesk / Shout</div><div class="mono">Anton • WAKE UP BABE! CLAUDE GOT CHERRIFIED</div></div><div class="anton" style="font-size:42px;color:var(--cherry);line-height:1.1">WAKE UP BABE!<br>CLAUDE GOT CHERRIFIED</div></div>
+  <div class="type-row"><div><div class="kicker">3. Stamp / Provoke</div><div class="mono">Special Elite • 01–07 series</div></div><div class="stamp-big">Ever thought why AI models can't get more tasteful than real devs?</div></div>
+  <div class="type-row"><div><div class="kicker">4. JP / Craft</div><div class="mono">Noto Sans JP vertical</div></div><div class="jp" style="writing-mode:vertical-rl;font-size:40px;letter-spacing:12px;color:var(--cherry)">チェリー チェリー</div></div>
+</div>
+
+<div class="sec">
+  <div class="label">05 — Imagery</div>
+  <h2>Watercolor, <em>not vector.</em></h2>
+  <p class="body">All art is wet: watercolor cherry, sumi-e branch (black ink + 5-petal sakura), pencil cupcake sketch, coupe cocktail, burgundy bow. Flat vector cherries only for “calls for testers” diagram. Photography = none.</p>
+  <div class="grid3">
+    <div class="card cream" style="text-align:center"><div style="font-size:72px">🍒</div><div class="kicker">Hero fruit</div><div class="mono">Single, centered on wood. Cover only.</div></div>
+    <div class="card" style="text-align:center"><div style="font-size:72px">🌸</div><div class="kicker">Sakura branch</div><div class="mono">Top-right bleed, petals falling SE.</div></div>
+    <div class="card" style="text-align:center;background:#141414;color:#fff"><div style="font-size:72px">🎀</div><div class="kicker" style="color:var(--sakura)">Gift bow</div><div class="mono">Cherrified / Your Agents overlays.</div></div>
+  </div>
+  <div class="do"><div class="kicker">Image treatment</div><div class="mono">Paper grain 8%, watercolor edges stay rough. No drop shadows, no glossy mockups. Sketch style (cupcake, Gemini reject) stays pencil gray #888 on white.</div></div>
+</div>
+
+<div class="sec">
+  <div class="label">06 — Layout & Composition</div>
+  <h2>Numbered, <em>quiet, corner-signed.</em></h2>
+  <div class="manifesto" style="position:relative;text-align:center"><div style="position:absolute;top:16px;left:24px" class="stamp-big">01</div><div class="stamp-big">The last time you said “F*ck it” and adjusted to a mediocre result?</div><div class="script" style="position:absolute;bottom:12px;right:24px;font-size:28px;color:var(--cherry)">Cherry</div></div>
+  <div class="grid2">
+    <div class="do"><div class="kicker">Do</div><div class="mono">• Huge white space, one idea per board<br>• Number top-left (01–07) in stamp red<br>• Signature Cherry bottom-right 28px<br>• Text centered, max 12 words per line<br>• Petals drift top-right → bottom-left diagonal</div></div>
+    <div class="dont"><div class="kicker">Don't</div><div class="mono">• No gradients, no stock dev photos<br>• No centered logo + centered body + footer soup<br>• No blue + yellow together<br>• No all-red board except Hiring card</div></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="label">07 — Voice</div>
+  <h2>Playful, <em>sharp, tasteful.</em></h2>
+  <div class="grid2">
+    <div class="card"><div class="anton" style="color:var(--cherry)">MAKE YOUR AGENTS SMARTER</div><p class="body">Promise. Cocktail maturity, not toy demo.</p></div>
+    <div class="card"><div class="anton" style="color:var(--cherry)">YOUR AGENTS</div><p class="body">Gift framing. You wrap expertise with a bow.</p></div>
+  </div>
+  <div class="grid2">
+    <div class="card cream"><div class="stamp">when we said Gemini to design the logo... ewwwwww</div><p class="body mono">Self-aware dev humor. Punch mediocre AI taste.</p></div>
+    <div class="card red"><div class="anton" style="color:var(--lemon)">WE ARE ALSO</div><div class="script" style="font-size:56px">hiring!</div><p class="body" style="color:#fff">Only place Lemon on Cherry. Urgent + sweet.</p></div>
+  </div>
+  <p class="body">Lexicon: tasteful, cherrified, cherrypick, mediocre = enemy. Never say “revolutionize”, “seamless”, “cutting-edge”. Say “rent a context”, “inject”, “keep memory small”.</p>
+</div>
+
+<div class="sec">
+  <div class="label">08 — Applications</div>
+  <h2>How it <em>ships.</em></h2>
+  <div class="grid3">
+    <div class="card" style="text-align:center"><div class="anton">🍒 X ⬢ ETH</div><div class="mono" style="margin-top:12px">Partnership lockup: cherry left, X center, partner monochrome right</div></div>
+    <div class="card" style="text-align:center;background:#141414;color:#fff"><div class="anton">✳ Claude</div><div class="mono">Cherrified: white serif on bow, asterisk indigo</div></div>
+    <div class="card cream" style="text-align:center"><div class="script" style="font-size:40px">calls for testers developers ai/ml enthusiasts</div><div class="mono">Recruit: black script + flat cherries</div></div>
+  </div>
+  <p class="body mono">CLI: $ context rent solana-security@4.2 — terminal cherry prompt is red “🍒 ›”. API docs background Paper, code blocks Sumi #141414 with Sakura comments.</p>
+</div>
+
+</div>
+
+<footer><span>Cherry. — taste over mediocrity</span><span>2026.</span></footer>
+
+</body>
+</html>
