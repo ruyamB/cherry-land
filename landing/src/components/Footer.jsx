@@ -1,4 +1,4 @@
-import { ArrowUp, ArrowUpRight, EnvelopeSimple, XLogo } from "@phosphor-icons/react";
+import { ArrowUp, ArrowUpRight, XLogo } from "@phosphor-icons/react";
 import RevealV from "./RevealV";
 
 const PRODUCT = [
@@ -78,12 +78,6 @@ export default function Footer() {
                 context — instead of re-learning the world per task.
               </p>
               <div className="mt-5 flex flex-col items-start gap-2">
-                <a
-                  href="mailto:c00h00e00r00r00y@gmail.com"
-                  className="fluid inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 font-mono2 text-[13px] text-white backdrop-blur-2xl hover:bg-white/20"
-                >
-                  <EnvelopeSimple size={14} weight="light" /> c00h00e00r00r00y@gmail.com
-                </a>
                 <a
                   href="https://x.com/@cherryisfun"
                   target="_blank"
