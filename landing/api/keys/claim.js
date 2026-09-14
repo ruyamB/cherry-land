@@ -1,4 +1,4 @@
-import { db, ensureSchema, throttled, EMAIL_RE, KEY_RE, readJson, send, method } from "./_lib.js";
+import { db, ensureSchema, throttled, EMAIL_RE, KEY_RE, readJson, send, method } from "../_lib.js";
 
 export default async function handler(req, res) {
   if (!method(req, res, "POST")) return;
