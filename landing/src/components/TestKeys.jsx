@@ -276,29 +276,19 @@ export default function TestKeys() {
                 You already own a key.
               </h2>
               <p className="mt-2 text-sm text-muted">
-                One key per email — {ownedKey.email} is bound to:
-              </p>
-              <p className="mx-auto mt-4 w-max rounded-2xl bg-cherry-ink px-6 py-3 font-mono2 text-xl tracking-[0.2em] text-white">
-                {ownedKey.key}
+                This email owns a key already.
               </p>
               <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
                 <button
                   type="button"
-                  onClick={() => copyText(ownedKey.key)}
-                  className="fluid inline-flex h-11 items-center gap-2 rounded-full border border-cherry/15 bg-white px-5 text-sm font-bold text-cherry-ink active:scale-[0.98]"
-                >
-                  {copied ? <Check size={15} weight="light" /> : <CopySimple size={15} weight="light" />}
-                  {copied ? "Copied" : "Copy key"}
-                </button>
-                <a
-                  href={`/thank-you?invite=${ownedKey.key}`}
+                  onClick={() => setModalOpen(false)}
                   className="group fluid inline-flex h-11 items-center gap-2 rounded-full bg-cherry py-2 pl-6 pr-2 text-sm font-bold text-white active:scale-[0.98]"
                 >
-                  View invite
+                  Got it
                   <span className="fluid flex h-8 w-8 items-center justify-center rounded-full bg-white/20 group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105">
-                    <ArrowUpRight size={15} weight="light" />
+                    <Check size={15} weight="light" />
                   </span>
-                </a>
+                </button>
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
