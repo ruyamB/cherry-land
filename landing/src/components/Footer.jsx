@@ -69,9 +69,13 @@ export default function Footer() {
         <RevealV index={1}>
           <div className="mt-14 grid grid-cols-2 gap-10 border-t border-white/15 pt-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
             <div className="col-span-2 md:col-span-1">
-              <a href="/" className="flex items-center gap-2.5">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-cherry font-mono2 text-sm text-white">C</span>
-                <span className="text-sm font-bold tracking-tight text-white">Cherry</span>
+              <a href="/" className="flex items-center gap-2.5" aria-label="Cherry home">
+                <img
+                  src="/cherry-logo.png"
+                  alt="Cherry"
+                  className="h-9 w-auto"
+                  style={{ filter: "brightness(0) invert(1)" }}
+                />
               </a>
               <p className="mt-4 max-w-[32ch] text-sm leading-relaxed text-white/70">
                 A marketplace and runtime where agents rent versioned, cited

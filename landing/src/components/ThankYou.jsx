@@ -21,9 +21,8 @@ export default function ThankYou() {
       <div className="grain-v" aria-hidden />
 
       <div className="fixed inset-x-0 top-0 z-40 flex justify-center px-4 pt-6">
-        <div className="fluid flex w-max items-center gap-2.5 rounded-full border border-cherry/15 bg-white/70 py-2 pl-3 pr-5 backdrop-blur-2xl">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-cherry font-mono2 text-sm text-white">C</span>
-          <span className="text-sm font-bold tracking-tight text-cherry-ink">Cherry</span>
+        <div className="fluid flex w-max items-center gap-2.5 rounded-full border border-cherry/15 bg-white/70 py-2 pl-4 pr-5 backdrop-blur-2xl">
+          <img src="/cherry-logo.png" alt="Cherry" className="h-7 w-auto" />
         </div>
       </div>
 
