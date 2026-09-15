@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { ArrowUpRight, Check, CopySimple, Keyhole, SealCheck } from "@phosphor-icons/react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowUpRight, Check, CopySimple, Keyhole, SealCheck, X } from "@phosphor-icons/react";
 import RevealV from "./RevealV";
 import Footer from "./Footer";
 
@@ -28,6 +28,17 @@ export default function TestKeys() {
   const [claimState, setClaimState] = useState("idle");
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
+  const [ownedKey, setOwnedKey] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (!modalOpen) return;
+    const fn = (e) => {
+      if (e.key === "Escape") setModalOpen(false);
+    };
+    window.addEventListener("keydown", fn);
+    return () => window.removeEventListener("keydown", fn);
+  }, [modalOpen ]);
 
   const generate = async () => {
     setError("");
@@ -88,6 +99,11 @@ export default function TestKeys() {
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
         setClaimState("idle");
+        if (data.owned) {
+          setOwnedKey({ key: data.key, email: cleanEmail });
+          setModalOpen(true);
+          return;
+        }
         setError(data.error || "Couldn't claim this key — try again.");
         return;
       }
@@ -99,12 +115,12 @@ export default function TestKeys() {
     }
   };
 
-  const copy = async () => {
+  const copyText = async (t) => {
     try {
-      await navigator.clipboard.writeText(key);
+      await navigator.clipboard.writeText(t);
     } catch {
       const ta = document.createElement("textarea");
-      ta.value = key;
+      ta.value = t;
       document.body.appendChild(ta);
       ta.select();
       document.execCommand("copy");
@@ -113,6 +129,8 @@ export default function TestKeys() {
     setCopied(true);
     setTimeout(() => setCopied(false), 1600);
   };
+
+  const copy = () => copyText(key);
 
   return (
     <div className="min-h-[100dvh] bg-cream font-grot text-cherry-ink">
@@ -232,11 +250,68 @@ export default function TestKeys() {
               </div>
 
               {error && <p className="mt-4 text-[13px] font-medium text-cherry-deep">{error}</p>}
-              <p className="mt-4 font-mono2 text-[11px] text-muted">one key per request · 5 requests/second · keys bind to one email</p>
+              <p className="mt-4 font-mono2 text-[11px] text-muted">one key per request · one key per email · 5 requests/second</p>
             </div>
           </div>
         </RevealV>
       </main>
+
+      {modalOpen && ownedKey && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-cherry-ink/60 p-4 backdrop-blur-sm"
+          onClick={() => setModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="You already own a key"
+        >
+          <div
+            className="bezel-outer w-full max-w-md"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="bezel-inner p-6 text-center md:p-8">
+              <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-cherry text-white">
+                <SealCheck size={24} weight="light" />
+              </span>
+              <h2 className="font-grot mt-4 text-2xl font-bold tracking-tight text-cherry-ink">
+                You already own a key.
+              </h2>
+              <p className="mt-2 text-sm text-muted">
+                One key per email — {ownedKey.email} is bound to:
+              </p>
+              <p className="mx-auto mt-4 w-max rounded-2xl bg-cherry-ink px-6 py-3 font-mono2 text-xl tracking-[0.2em] text-white">
+                {ownedKey.key}
+              </p>
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => copyText(ownedKey.key)}
+                  className="fluid inline-flex h-11 items-center gap-2 rounded-full border border-cherry/15 bg-white px-5 text-sm font-bold text-cherry-ink active:scale-[0.98]"
+                >
+                  {copied ? <Check size={15} weight="light" /> : <CopySimple size={15} weight="light" />}
+                  {copied ? "Copied" : "Copy key"}
+                </button>
+                <a
+                  href={`/thank-you?invite=${ownedKey.key}`}
+                  className="group fluid inline-flex h-11 items-center gap-2 rounded-full bg-cherry py-2 pl-6 pr-2 text-sm font-bold text-white active:scale-[0.98]"
+                >
+                  View invite
+                  <span className="fluid flex h-8 w-8 items-center justify-center rounded-full bg-white/20 group-hover:translate-x-1 group-hover:-translate-y-[1px] group-hover:scale-105">
+                    <ArrowUpRight size={15} weight="light" />
+                  </span>
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setModalOpen(false)}
+                  aria-label="Close"
+                  className="fluid inline-flex h-11 w-11 items-center justify-center rounded-full bg-cherry/10 text-cherry-deep active:scale-[0.98]"
+                >
+                  <X size={16} weight="light" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>

@@ -51,6 +51,20 @@ export async function ensureSchema() {
       claimed_at TIMESTAMPTZ NOT NULL DEFAULT now()
     );
   `);
+  // retire pre-rule duplicates: keep each email's earliest claim
+  await p.query(`
+    UPDATE tester_keys t SET status = 'duplicate'
+    WHERE t.status = 'claimed' AND EXISTS (
+      SELECT 1 FROM tester_keys o
+      WHERE o.claimed_email = t.claimed_email
+        AND o.status = 'claimed' AND o.id < t.id
+    );
+  `);
+  // hard backstop: one claimed key per email, even under racing requests
+  await p.query(`
+    CREATE UNIQUE INDEX IF NOT EXISTS tester_keys_one_claim_per_email
+    ON tester_keys (claimed_email) WHERE status = 'claimed';
+  `);
 }
 
 /* 5 requests / second sliding window, per bucket + IP.

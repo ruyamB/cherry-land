@@ -23,6 +23,17 @@ export default async function handler(req, res) {
     await ensureSchema();
     const pool = db();
 
+    const owned = await pool.query(
+      "SELECT key FROM tester_keys WHERE claimed_email = $1 AND status = 'claimed' LIMIT 1",
+      [email]
+    );
+    if (owned.rowCount > 0) {
+      return send(res, 409, {
+        error: "This email already owns a key.",
+        owned: true,
+        key: owned.rows[0].key,
+      });
+    }
     const found = await pool.query("SELECT status FROM tester_keys WHERE key = $1", [key]);
     if (found.rowCount === 0) {
       return send(res, 404, { error: "Key not found — it may be mistyped." });
@@ -30,10 +41,25 @@ export default async function handler(req, res) {
     if (found.rows[0].status === "claimed") {
       return send(res, 409, { error: "This key is already claimed." });
     }
-    await pool.query(
-      "UPDATE tester_keys SET status = 'claimed', claimed_email = $2, claimed_at = now() WHERE key = $1",
-      [key, email]
-    );
+    try {
+      await pool.query(
+        "UPDATE tester_keys SET status = 'claimed', claimed_email = $2, claimed_at = now() WHERE key = $1",
+        [key, email]
+      );
+    } catch (e) {
+      if (e.code === "23505") {
+        const retry = await pool.query(
+          "SELECT key FROM tester_keys WHERE claimed_email = $1 AND status = 'claimed' LIMIT 1",
+          [email]
+        );
+        return send(res, 409, {
+          error: "This email already owns a key.",
+          owned: true,
+          key: retry.rowCount > 0 ? retry.rows[0].key : undefined,
+        });
+      }
+      throw e;
+    }
     await pool.query(
       "INSERT INTO claimed_keys (key, claimed_by_email, source) VALUES ($1, $2, 'test-keys') ON CONFLICT (key) DO NOTHING",
       [key, email]
