@@ -28,14 +28,14 @@ export default function Footer() {
   return (
     <footer className="relative overflow-hidden">
       <img
-        src="/night-footer.jpg"
-        alt="Black cat watching city rain at night from a warm lamplit room"
+        src="/blush-footer.jpg"
+        alt="Mount Fuji and pagoda among soft pink sakura blossoms"
         className="pointer-events-none absolute inset-0 h-full w-full object-cover"
         loading="lazy"
       />
       <div
         className="pointer-events-none absolute inset-0"
-        style={{ background: "linear-gradient(to bottom, #FFFBF9 0%, rgba(255,251,249,0.05) 20%, rgba(8,6,18,0.55) 42%, rgba(8,6,18,0.78) 68%, rgba(5,3,10,0.95) 100%)" }}
+        style={{ background: "linear-gradient(to bottom, #FFFBF9 0%, rgba(255,251,249,0.04) 18%, rgba(74,18,26,0.52) 40%, rgba(58,12,20,0.8) 66%, rgba(40,7,13,0.95) 100%)" }}
         aria-hidden
       />
 
@@ -44,12 +44,12 @@ export default function Footer() {
           <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
             <h2
               className="max-w-[16ch] text-4xl font-extrabold leading-[1.02] tracking-tight text-white md:text-6xl"
-              style={{ textShadow: "0 2px 28px rgba(5,2,8,0.85), 0 1px 3px rgba(5,2,8,0.9)" }}
+              style={{ textShadow: "0 2px 28px rgba(40,7,13,0.85), 0 1px 3px rgba(40,7,13,0.9)" }}
             >
               Rent the context.{" "}
               <span
                 className="text-[#FFD9DE]"
-                style={{ textShadow: "0 0 36px rgba(209,75,75,0.8), 0 2px 14px rgba(5,2,8,0.9)" }}
+                style={{ textShadow: "0 0 36px rgba(209,75,75,0.85), 0 2px 14px rgba(40,7,13,0.9)" }}
               >
                 Keep the memory.
               </span>
@@ -77,7 +77,7 @@ export default function Footer() {
                   style={{ filter: "brightness(0) invert(1)" }}
                 />
               </a>
-              <p className="mt-4 max-w-[32ch] text-sm leading-relaxed text-white/70">
+              <p className="mt-4 max-w-[32ch] text-sm leading-relaxed text-white/80">
                 A marketplace and runtime where agents rent versioned, cited
                 context — instead of re-learning the world per task.
               </p>
@@ -98,33 +98,33 @@ export default function Footer() {
             </div>
 
             <nav aria-label="Product">
-              <p className="font-mono2 text-[11px] uppercase tracking-[0.2em] text-white/40">Product</p>
+              <p className="font-mono2 text-[11px] uppercase tracking-[0.2em] text-white/50">Product</p>
               <ul className="mt-4 space-y-2.5">
                 {PRODUCT.map(([t, h]) => (
                   <li key={h + t}>
-                    <a href={h} className="fluid text-sm font-medium text-white/75 hover:text-white">{t}</a>
+                    <a href={h} className="fluid text-sm font-medium text-white/85 hover:text-white">{t}</a>
                   </li>
                 ))}
               </ul>
             </nav>
 
             <nav aria-label="Marketplace">
-              <p className="font-mono2 text-[11px] uppercase tracking-[0.2em] text-white/40">Marketplace</p>
+              <p className="font-mono2 text-[11px] uppercase tracking-[0.2em] text-white/50">Marketplace</p>
               <ul className="mt-4 space-y-2.5">
                 {MARKET.map(([t, h]) => (
                   <li key={h + t}>
-                    <a href={h} className="fluid text-sm font-medium text-white/75 hover:text-white">{t}</a>
+                    <a href={h} className="fluid text-sm font-medium text-white/85 hover:text-white">{t}</a>
                   </li>
                 ))}
               </ul>
             </nav>
 
             <nav aria-label="Legal">
-              <p className="font-mono2 text-[11px] uppercase tracking-[0.2em] text-white/40">Legal</p>
+              <p className="font-mono2 text-[11px] uppercase tracking-[0.2em] text-white/50">Legal</p>
               <ul className="mt-4 space-y-2.5">
                 {LEGAL.map(([t, h]) => (
                   <li key={h}>
-                    <a href={h} className="fluid text-sm font-medium text-white/75 hover:text-white">{t}</a>
+                    <a href={h} className="fluid text-sm font-medium text-white/85 hover:text-white">{t}</a>
                   </li>
                 ))}
               </ul>
@@ -132,7 +132,7 @@ export default function Footer() {
           </div>
         </RevealV>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-white/15 pt-6 text-[13px] text-white/60 md:flex-row md:items-center">
+        <div className="mt-12 flex flex-col gap-4 border-t border-white/15 pt-6 text-[13px] text-white/70 md:flex-row md:items-center">
           <p>© 2026 Cherry — rented context for agents</p>
           <p className="flex flex-wrap gap-x-4 gap-y-1 font-mono2 text-xs md:mx-auto">
             <a href="/terms" className="fluid hover:text-white">terms</a>
