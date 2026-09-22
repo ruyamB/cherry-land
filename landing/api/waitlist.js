@@ -1,4 +1,4 @@
-import { db, ensureSchema, throttled, EMAIL_RE, makeInvite, readJson, send, method } from "./_lib.js";
+import { db, ensureSchema, throttled, emailThrottled, EMAIL_RE, makeInvite, readJson, send, method } from "./_lib.js";
 import { sendWelcomeEmail } from "../lib/mailer.mjs";
 
 export default async function handler(req, res) {
@@ -16,6 +16,9 @@ export default async function handler(req, res) {
     const email = String(parsed.email || "").trim().toLowerCase();
     if (!EMAIL_RE.test(email)) {
       return send(res, 400, { error: "Enter a valid work email." });
+    }
+    if (emailThrottled("waitlist", email)) {
+      return send(res, 429, { error: "Too many requests for this email — please wait a minute and try again." });
     }
     await ensureSchema();
     const pool = db();

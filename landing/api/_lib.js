@@ -70,26 +70,45 @@ export async function ensureSchema() {
   `);
 }
 
-/* 5 requests / second sliding window, per bucket + IP.
+/* Sliding-window limits, keyed per bucket.
+   The edge appends the real client IP to X-Forwarded-For, so only the LAST
+   entry is trusted — leading entries are client-controlled and must never
+   key a limiter (that would be a spoofable bypass).
    Note: serverless instances each hold their own window, so this is
-   a per-instance guard — the DB uniqueness constraints are the hard backstop. */
+   a per-instance guard — the DB constraints are the hard backstop. */
 const RATE_LIMIT = 5;
 const RATE_WINDOW_MS = 1000;
 const hits = new Map();
 
-export function throttled(bucket, req) {
-  const fwd = req.headers["x-forwarded-for"];
-  const ip = (Array.isArray(fwd) ? fwd[0] : String(fwd || "").split(",")[0] || req.socket?.remoteAddress || "unknown").trim();
-  const k = bucket + ":" + ip;
+function burst(key, maxN, windowMs) {
   const now = Date.now();
-  const arr = (hits.get(k) || []).filter((t) => now - t < RATE_WINDOW_MS);
-  if (arr.length >= RATE_LIMIT) {
-    hits.set(k, arr);
+  const arr = (hits.get(key) || []).filter((t) => now - t < windowMs);
+  if (arr.length >= maxN) {
+    hits.set(key, arr);
     return true;
   }
   arr.push(now);
-  hits.set(k, arr);
+  hits.set(key, arr);
   return false;
+}
+
+export function ipOf(req) {
+  const fwd = req.headers["x-forwarded-for"];
+  const parts = (Array.isArray(fwd) ? fwd.join(",") : String(fwd || ""))
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (parts.length > 0) return parts[parts.length - 1];
+  return req.socket?.remoteAddress || "unknown";
+}
+
+export function throttled(bucket, req) {
+  return burst(bucket + ":" + ipOf(req), RATE_LIMIT, RATE_WINDOW_MS);
+}
+
+/* 10 requests/minute per email (abuse of a single identity across IPs) */
+export function emailThrottled(bucket, email) {
+  return burst(bucket + ":email:" + email, 10, 60 * 1000);
 }
 
 export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

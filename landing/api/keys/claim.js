@@ -1,4 +1,4 @@
-import { db, ensureSchema, throttled, EMAIL_RE, KEY_RE, readJson, send, method } from "../_lib.js";
+import { db, ensureSchema, throttled, emailThrottled, EMAIL_RE, KEY_RE, readJson, send, method } from "../_lib.js";
 
 export default async function handler(req, res) {
   if (!method(req, res, "POST")) return;
@@ -19,6 +19,9 @@ export default async function handler(req, res) {
     }
     if (!EMAIL_RE.test(email)) {
       return send(res, 400, { error: "Enter a valid work email to claim this key." });
+    }
+    if (emailThrottled("keyclaim", email)) {
+      return send(res, 429, { error: "Too many requests for this email — please wait a minute and try again." });
     }
     await ensureSchema();
     const pool = db();

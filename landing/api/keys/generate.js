@@ -1,4 +1,4 @@
-import { db, ensureSchema, throttled, makeTesterKey, send, method } from "../_lib.js";
+import { db, ensureSchema, throttled, ipOf, makeTesterKey, send, method } from "../_lib.js";
 
 export default async function handler(req, res) {
   if (!method(req, res, "POST")) return;
@@ -8,8 +8,14 @@ export default async function handler(req, res) {
     }
     await ensureSchema();
     const pool = db();
-    const fwd = req.headers["x-forwarded-for"];
-    const ip = (Array.isArray(fwd) ? fwd[0] : String(fwd || "").split(",")[0] || "unknown").trim();
+    const ip = ipOf(req);
+    const minted = await pool.query(
+      "SELECT COUNT(*)::int AS n FROM tester_keys WHERE issued_ip = $1 AND issued_at > now() - interval '24 hours'",
+      [ip]
+    );
+    if (minted.rows[0].n >= 30) {
+      return send(res, 429, { error: "Daily key allowance used up — try again tomorrow." });
+    }
 
     let key = null;
     for (let i = 0; i < 5 && !key; i++) {

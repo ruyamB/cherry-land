@@ -6,22 +6,35 @@ import { sendWelcomeEmail } from "../lib/mailer.mjs";
 const PORT = Number(process.env.PORT || 8787);
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/* 5 requests / second sliding window, per bucket + IP */
-const RATE_LIMIT = 5;
-const RATE_WINDOW_MS = 1000;
-const hits = new Map(); // bucket:ip -> number[]
+/* Rate limits: sliding windows keyed per bucket.
+   IP jars: local server uses the socket address and IGNORES X-Forwarded-For
+   entirely (any client-sent XFF is untrusted). */
+const hits = new Map(); // key -> number[]
 
-function throttled(bucket, ip) {
-  const k = bucket + ":" + ip;
+function burst(key, maxN, windowMs) {
   const now = Date.now();
-  const arr = (hits.get(k) || []).filter((t) => now - t < RATE_WINDOW_MS);
-  if (arr.length >= RATE_LIMIT) {
-    hits.set(k, arr);
+  const arr = (hits.get(key) || []).filter((t) => now - t < windowMs);
+  if (arr.length >= maxN) {
+    hits.set(key, arr);
     return true;
   }
   arr.push(now);
-  hits.set(k, arr);
+  hits.set(key, arr);
   return false;
+}
+
+function ipOf(req) {
+  return req.socket.remoteAddress || "unknown";
+}
+
+/* 5 requests/second per IP */
+function throttled(bucket, ip) {
+  return burst(bucket + ":" + ip, 5, 1000);
+}
+
+/* 10 requests/minute per email (abuse of a single identity across IPs) */
+function emailThrottled(bucket, email) {
+  return burst(bucket + ":email:" + email, 10, 60 * 1000);
 }
 
 function readBody(req, limit = 10 * 1024) {
@@ -82,6 +95,9 @@ const server = createServer(async (req, res) => {
       if (!EMAIL_RE.test(email)) {
         return send(res, 400, { error: "Enter a valid work email." });
       }
+      if (emailThrottled("waitlist", email)) {
+        return send(res, 429, { error: "Too many requests for this email — please wait a minute and try again." });
+      }
 
       const existing = await pool.query(
         "SELECT invite_code FROM waitlist_users WHERE email = $1",
@@ -125,6 +141,13 @@ const server = createServer(async (req, res) => {
       if (throttled("keygen", ip)) {
         return send(res, 429, { error: "Too many keys — please wait a second and try again." });
       }
+      const minted = await pool.query(
+        "SELECT COUNT(*)::int AS n FROM tester_keys WHERE issued_ip = $1 AND issued_at > now() - interval '24 hours'",
+        [ip]
+      );
+      if (minted.rows[0].n >= 30) {
+        return send(res, 429, { error: "Daily key allowance used up — try again tomorrow." });
+      }
       await readBody(req).catch(() => "");
       let key = null;
       for (let i = 0; i < 5 && !key; i++) {
@@ -161,6 +184,9 @@ const server = createServer(async (req, res) => {
       }
       if (!EMAIL_RE.test(email)) {
         return send(res, 400, { error: "Enter a valid work email to claim this key." });
+      }
+      if (emailThrottled("keyclaim", email)) {
+        return send(res, 429, { error: "Too many requests for this email — please wait a minute and try again." });
       }
       const owned = await pool.query(
         "SELECT key FROM tester_keys WHERE claimed_email = $1 AND status = 'claimed' LIMIT 1",
@@ -207,6 +233,10 @@ const server = createServer(async (req, res) => {
     }
 
     if (req.method === "GET" && req.url === "/api/health") {
+      const hip = req.socket.remoteAddress || "unknown";
+      if (burst("health:" + hip, 20, 1000)) {
+        return send(res, 429, { error: "Too many requests — please wait a second and try again." });
+      }
       await pool.query("SELECT 1");
       return send(res, 200, { ok: true });
     }
