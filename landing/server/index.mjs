@@ -1,6 +1,7 @@
 import { createServer } from "node:http";
 import { randomBytes } from "node:crypto";
 import { pool, ensureSchema } from "./db.mjs";
+import { sendWelcomeEmail } from "../lib/mailer.mjs";
 
 const PORT = Number(process.env.PORT || 8787);
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -111,6 +112,11 @@ const server = createServer(async (req, res) => {
       }
       if (!invite) return send(res, 500, { error: "Could not reserve a key — try again." });
       const { rows } = await pool.query("SELECT COUNT(*)::int AS n FROM waitlist_users");
+      // thank-you mail: best-effort, never fails the signup
+      const mailed = await sendWelcomeEmail({ to: email, invite, position: rows[0].n });
+      if (mailed) {
+        await pool.query("UPDATE waitlist_users SET emailed_at = now() WHERE email = $1", [email]);
+      }
       return send(res, 200, { ok: true, invite, position: rows[0].n, returning: false });
     }
 

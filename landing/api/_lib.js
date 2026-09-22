@@ -32,6 +32,9 @@ export async function ensureSchema() {
     ON waitlist_users (created_at DESC);
   `);
   await p.query(`
+    ALTER TABLE waitlist_users ADD COLUMN IF NOT EXISTS emailed_at TIMESTAMPTZ;
+  `);
+  await p.query(`
     CREATE TABLE IF NOT EXISTS tester_keys (
       id SERIAL PRIMARY KEY,
       key TEXT UNIQUE NOT NULL,

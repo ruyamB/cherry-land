@@ -1,4 +1,5 @@
 import { db, ensureSchema, throttled, EMAIL_RE, makeInvite, readJson, send, method } from "./_lib.js";
+import { sendWelcomeEmail } from "../lib/mailer.mjs";
 
 export default async function handler(req, res) {
   if (!method(req, res, "POST")) return;
@@ -40,6 +41,11 @@ export default async function handler(req, res) {
     }
     if (!invite) return send(res, 500, { error: "Could not reserve a key — try again." });
     const { rows } = await pool.query("SELECT COUNT(*)::int AS n FROM waitlist_users");
+    // thank-you mail: best-effort, never fails the signup
+    const mailed = await sendWelcomeEmail({ to: email, invite, position: rows[0].n });
+    if (mailed) {
+      await pool.query("UPDATE waitlist_users SET emailed_at = now() WHERE email = $1", [email]);
+    }
     return send(res, 200, { ok: true, invite, position: rows[0].n, returning: false });
   } catch (e) {
     console.error("waitlist error:", e.message);
